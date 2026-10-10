@@ -20,4 +20,8 @@
     <string name="query_found">找到：%1$s</string>
     <string name="query_not_found">未找到：%1$s</string>
 
+    <!-- 区 2：分类下拉框与确定按钮 -->
+    <string name="category_all">全部分类</string>
+    <string name="btn_confirm">确定</string>
+
 </resources>

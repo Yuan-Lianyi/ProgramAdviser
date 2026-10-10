@@ -2,6 +2,7 @@ package com.example.programadviser
 
 import android.os.Bundle
 import android.view.View
+import android.widget.ArrayAdapter
 import androidx.appcompat.app.AppCompatActivity
 import com.example.programadviser.controller.AdviserController
 import com.example.programadviser.databinding.ActivityMainBinding
@@ -13,12 +14,10 @@ import com.example.programadviser.view.AdviserContract
  * 作业二：UI 控件代码生成以及 MVC
  *
  * 本 Activity 是 MVC 模式中的 View 层（实现 AdviserContract.View）：
- *  - 只负责收集输入（输入框）与渲染结果（动态列表、查询提示）；
- *  - 按钮事件交给 Controller，业务逻辑在 Controller / Model。
+ *  - 区 1：输入框 + 添加文本 + 查询，动态列表里的 TextView 全部由代码创建；
+ *  - 区 2：分类下拉框 + 确定，结果由 Model 层提供、精简显示。
  *
- * 动态列表中的 TextView 全部由代码创建（ItemGreetingBinding.inflate + addView），
- * 外层用 ScrollView 嵌套 LinearLayout 实现滚动显示。
- *
+ * 外层用 ScrollView 嵌套 LinearLayout 实现动态列表的滚动显示；
  * 界面文字全部来自 res/values/strings.xml，布局文件与代码中不出现硬编码字符串。
  * ViewBinding 已在 app/build.gradle.kts 中开启：buildFeatures { viewBinding = true }
  */
@@ -44,17 +43,15 @@ class MainActivity : AppCompatActivity(), AdviserContract.View {
         setSupportActionBar(binding.toolbar)
 
         // ④ MVC 装配：Model（数据）→ Controller（事件响应与调度）→ View（本 Activity）
-        adviserController = AdviserController(this, AdviserModel())
+        adviserController = AdviserController(this, AdviserModel(this))
+        adviserController.start()
 
-        // ⑤ 按钮的事件响应：View 只把点击转交 Controller，逻辑在 Controller / Model
-        binding.addSection.btnAddMessage.setOnClickListener {
-            adviserController.onAddClicked()
-        }
-        binding.addSection.btnQuery.setOnClickListener {
-            adviserController.onQueryClicked()
-        }
+        // ⑤ 事件响应：View 只把点击转交 Controller，逻辑在 Controller / Model
+        binding.btnAddMessage.setOnClickListener { adviserController.onAddClicked() }
+        binding.btnQuery.setOnClickListener { adviserController.onQueryClicked() }
+        binding.btnConfirm.setOnClickListener { adviserController.onConfirmClicked() }
         // 输入框回车等同于“添加文本”
-        binding.addSection.etContent.setOnEditorActionListener { _, _, _ ->
+        binding.etContent.setOnEditorActionListener { _, _, _ ->
             adviserController.onAddClicked()
             true
         }
@@ -66,15 +63,27 @@ class MainActivity : AppCompatActivity(), AdviserContract.View {
     // MVC 的 View 接口实现（只做展示与取输入，不含业务逻辑）
     // ------------------------------------------------------------------
 
-    override fun inputText(): String = binding.addSection.etContent.text.toString().trim()
+    override fun inputText(): String = binding.etContent.text.toString().trim()
 
     override fun clearInput() {
-        binding.addSection.etContent.setText("")
+        binding.etContent.setText("")
     }
 
     override fun showQueryResult(text: String) {
-        binding.addSection.tvQueryResult.text = text
+        binding.tvQueryResult.text = text
     }
+
+    override fun showCategoryResult(text: String) {
+        binding.tvAdviserResult.text = text
+    }
+
+    override fun showCategories(categories: List<String>) {
+        val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, categories)
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        binding.spinnerCategory.adapter = adapter
+    }
+
+    override fun selectedCategoryIndex(): Int = binding.spinnerCategory.selectedItemPosition
 
     override fun emptyInputHint(): String = getString(R.string.query_no_input)
 
@@ -97,15 +106,15 @@ class MainActivity : AppCompatActivity(), AdviserContract.View {
         // ItemGreetingBinding 由 ViewBinding 为 item_greeting.xml 自动生成：
         // 不写死布局 XML，完全由代码创建 View
         val itemBinding = ItemGreetingBinding.inflate(
-            layoutInflater, binding.addSection.llMessages, false
+            layoutInflater, binding.llMessages, false
         )
         itemBinding.tvMessage.text = text ?: getString(R.string.record_format, lastNumber)
 
-        binding.addSection.llMessages.addView(itemBinding.root)
+        binding.llMessages.addView(itemBinding.root)
 
         // 让 ScrollView 滚动到刚添加的控件上
-        binding.addSection.svMessages.post {
-            binding.addSection.svMessages.fullScroll(View.FOCUS_DOWN)
+        binding.svMessages.post {
+            binding.svMessages.fullScroll(View.FOCUS_DOWN)
         }
     }
 

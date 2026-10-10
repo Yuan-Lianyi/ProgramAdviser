@@ -6,8 +6,12 @@
     <color name="text_primary">#FF1F2430</color>
     <color name="text_hint">#FF9E9E9E</color>
 
-    <!-- 动态列表底色（青色），对齐参考界面 -->
+    <!-- 区 1 动态列表底色（青色）、区 2 底色（绿色），对齐参考界面 -->
     <color name="section1_box">#FF1DE9B6</color>
+    <color name="section2_box">#FF00E676</color>
+
+    <!-- 按钮底色 -->
+    <color name="btn_normal">#FFE0E0E0</color>
 
     <color name="ic_launcher_background">#FF6A1B9A</color>
 </resources>

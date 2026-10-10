@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- 紫色标题栏 + 内容区（输入框、添加文本、查询、动态列表） -->
+<!-- 紫色标题栏 + 区 1（输入框/添加文本/查询 + 动态列表） + 区 2（分类下拉框 + 确定 + 结果） -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
@@ -15,8 +15,111 @@
         app:title="@string/app_title"
         app:titleTextColor="@color/surface_white" />
 
-    <include
-        android:id="@+id/addSection"
-        layout="@layout/section_add" />
+    <!-- ============ 区 1：动态添加 TextView ============ -->
+    <ScrollView
+        android:id="@+id/svMessages"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@drawable/bg_record_box"
+        android:scrollbars="vertical">
+
+        <LinearLayout
+            android:id="@+id/llMessages"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" />
+
+    </ScrollView>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnAddMessage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/item_gap"
+        android:insetTop="0dp"
+        android:insetBottom="0dp"
+        android:minWidth="0dp"
+        android:text="@string/btn_add_message"
+        android:textColor="@color/text_primary"
+        app:backgroundTint="@color/brand_primary"
+        app:cornerRadius="@dimen/button_radius"
+        app:elevation="0dp" />
+
+    <EditText
+        android:id="@+id/etContent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/item_gap"
+        android:autofillHints=""
+        android:hint="@string/hint_content"
+        android:imeOptions="actionDone"
+        android:inputType="text"
+        android:singleLine="true"
+        android:textColor="@color/text_primary"
+        android:textColorHint="@color/text_hint"
+        android:textSize="@dimen/text_record" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnQuery"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/item_gap"
+        android:insetTop="0dp"
+        android:insetBottom="0dp"
+        android:minWidth="0dp"
+        android:text="@string/btn_query"
+        android:textColor="@color/text_primary"
+        app:backgroundTint="@color/brand_primary"
+        app:cornerRadius="@dimen/button_radius"
+        app:elevation="0dp" />
+
+    <TextView
+        android:id="@+id/tvQueryResult"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/item_gap"
+        android:textColor="@color/text_primary"
+        android:textSize="@dimen/text_record" />
+
+    <!-- ============ 区 2：分类下拉框 + 确定 + 结果（精简显示） ============ -->
+    <LinearLayout
+        android:id="@+id/adviserSection"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/section2_box"
+        android:orientation="vertical"
+        android:padding="@dimen/item_gap">
+
+        <Spinner
+            android:id="@+id/spinnerCategory"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnConfirm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/item_gap"
+            android:insetTop="0dp"
+            android:insetBottom="0dp"
+            android:minWidth="0dp"
+            android:text="@string/btn_confirm"
+            android:textColor="@color/text_primary"
+            app:backgroundTint="@color/btn_normal"
+            app:cornerRadius="@dimen/button_radius"
+            app:elevation="0dp" />
+
+        <TextView
+            android:id="@+id/tvAdviserResult"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/item_gap"
+            android:gravity="center_horizontal"
+            android:textColor="@color/text_primary"
+            android:textSize="@dimen/text_result" />
+
+    </LinearLayout>
 
 </LinearLayout>

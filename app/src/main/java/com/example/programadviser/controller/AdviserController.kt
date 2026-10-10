@@ -4,9 +4,9 @@ import com.example.programadviser.view.AdviserContract
 
 /**
  * MVC 中的 Controller 层：
- *  - 监听 View 上按钮/输入框的事件（“添加文本”“查询”）；
+ *  - 监听 View 上按钮/输入框的事件（“添加文本”“查询”“确定”）；
  *  - 调用 Model 保存与查询数据；
- *  - 把结果交回 View 渲染（列表项由 View 用代码动态生成）。
+ *  - 把结果交回 View 渲染。
  *
  * Controller 同时依赖 View 接口与 Model 接口，两者互不认识，实现解耦。
  */
@@ -14,6 +14,11 @@ class AdviserController(
     private val view: AdviserContract.View,
     private val model: AdviserContract.Model
 ) {
+
+    /** 由 Activity 在 onCreate 中调用：初始化区 2 的分类下拉列表 */
+    fun start() {
+        view.showCategories(model.categoryNames())
+    }
 
     /**
      * 按钮“添加文本”的事件响应：
@@ -40,5 +45,10 @@ class AdviserController(
         }
         val found = model.contains(text)
         view.showQueryResult(view.queryResultText(text, found))
+    }
+
+    /** 按钮“确定”的事件响应：查询模型层并返回相应结果（区 2 精简显示分类名） */
+    fun onConfirmClicked() {
+        view.showCategoryResult(model.categoryOf(view.selectedCategoryIndex()))
     }
 }
