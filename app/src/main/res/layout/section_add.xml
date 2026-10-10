@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 区 1：输入框 + 添加文本 + 查询；动态添加的 TextView 用 ScrollView 嵌套 LinearLayout 滚动显示 -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/addSection"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/surface_white"
+    android:orientation="vertical">
+
+    <ScrollView
+        android:id="@+id/svMessages"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@drawable/bg_record_box"
+        android:scrollbars="vertical">
+
+        <LinearLayout
+            android:id="@+id/llMessages"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" />
+
+    </ScrollView>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnAddMessage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/item_gap"
+        android:insetTop="0dp"
+        android:insetBottom="0dp"
+        android:minWidth="0dp"
+        android:text="@string/btn_add_message"
+        android:textColor="@color/text_primary"
+        app:backgroundTint="@color/brand_primary"
+        app:cornerRadius="@dimen/button_radius"
+        app:elevation="0dp" />
+
+    <EditText
+        android:id="@+id/etContent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/item_gap"
+        android:autofillHints=""
+        android:hint="@string/hint_content"
+        android:imeOptions="actionDone"
+        android:inputType="text"
+        android:singleLine="true"
+        android:textColor="@color/text_primary"
+        android:textColorHint="@color/text_hint"
+        android:textSize="@dimen/text_record" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnQuery"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/item_gap"
+        android:insetTop="0dp"
+        android:insetBottom="0dp"
+        android:minWidth="0dp"
+        android:text="@string/btn_query"
+        android:textColor="@color/text_primary"
+        app:backgroundTint="@color/brand_primary"
+        app:cornerRadius="@dimen/button_radius"
+        app:elevation="0dp" />
+
+    <TextView
+        android:id="@+id/tvQueryResult"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/item_gap"
+        android:paddingBottom="@dimen/item_gap"
+        android:textColor="@color/text_primary"
+        android:textSize="@dimen/text_record" />
+
+</LinearLayout>

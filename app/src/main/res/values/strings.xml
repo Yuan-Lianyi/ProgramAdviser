@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- 应用栏标题：提交要求为自己的“姓名+学号” -->
+    <string name="app_title">袁连一 2024110545</string>
+
+    <!-- APP 应用名称（桌面图标名 + 清单里的 android:label） -->
+    <string name="app_name">袁连一 2024110545</string>
+
+    <!-- 界面文字全部放在字符串资源里，布局文件与代码中不出现硬编码字符串 -->
+    <string name="hint_content">请输入内容</string>
+    <string name="btn_add_message">添加文本</string>
+    <string name="btn_query">查询</string>
+
+    <!-- 动态添加的 TextView，编号从 5 开始，与参考界面一致 -->
+    <string name="record_format">This is a new textTextView：%1$d</string>
+
+    <!-- 查询结果提示 -->
+    <string name="query_no_input">请先输入要查询的内容。</string>
+    <string name="query_found">找到：%1$s</string>
+    <string name="query_not_found">未找到：%1$s</string>
+
+</resources>

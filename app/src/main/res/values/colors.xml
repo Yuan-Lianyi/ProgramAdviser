@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- 应用栏配色：对应参考界面的紫色标题栏 -->
+    <color name="brand_primary">#6A1B9A</color>
+    <color name="surface_white">#FFFFFFFF</color>
+    <color name="text_primary">#FF1F2430</color>
+    <color name="text_hint">#FF9E9E9E</color>
+
+    <!-- 动态列表底色（青色），对齐参考界面 -->
+    <color name="section1_box">#FF1DE9B6</color>
+
+    <color name="ic_launcher_background">#FF6A1B9A</color>
+</resources>
